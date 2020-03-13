@@ -1,23 +1,60 @@
 const chainMaker = {
+  name: '',
   getLength() {
-    throw 'Not implemented';
-    // remove line with error and write your code here
+    if (this.name === '') {
+      return 0;
+    } else {
+      let arr = this.name.split('~~');
+      return arr.length;
+    }
   },
   addLink(value) {
-    throw 'Not implemented';
-    // remove line with error and write your code here
+    if (value === null) {
+      value = 'null';
+    } if (value === undefined) {
+      value = 'undefined';
+    } if (value === true) {
+      value = 'true';
+    } if (value === false) {
+      value = 'false';
+    }
+    if (this.name !== '') {
+        this.name = this.name +  `~~( ${value.toString()} )`;
+    } else if (this.name === '')  {
+      this.name = `( ${value.toString()} )`;
+    }
+    return chainMaker;
   },
   removeLink(position) {
-    throw 'Not implemented';
-    // remove line with error and write your code here
+    let arr = this.name.split('~~');
+    if (typeof position === 'number') {
+      if (position > 0 && position <= arr.length) {
+        arr.splice(position - 1, 1);
+        this.name =  arr.join('~~');
+        return chainMaker;
+      } else {
+        this.name = '';
+        throw new Error();
+      }
+    } else {
+      this.name = '';
+      throw new Error();
+    }
   },
   reverseChain() {
-    throw 'Not implemented';
-    // remove line with error and write your code here
+    let arr = this.name.split('~~');
+    if (arr.length === 0 || arr.length === 1) {
+      return chainMaker;
+    } else {
+      arr.reverse();
+      this.name = arr.join('~~');
+      return chainMaker;
+    }
   },
   finishChain() {
-    throw 'Not implemented';
-    // remove line with error and write your code here
+    let result = this.name;
+    this.name = '';
+    return result;
   }
 };
 
